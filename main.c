@@ -5,7 +5,7 @@ int main(void)
 {
     vcstdio_init();
 
-    printf("Hello world!\n");
+    printf("Hello world!\r\n");
 
     while (1)
     {
