@@ -43,6 +43,7 @@ set(COMMON_COMPILE_FLAGS
 
 add_library(vcdrivers_common
     ${CMAKE_CURRENT_SOURCE_DIR}/source/stdiobase.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/source/assert_failure.c
 )
 
 target_include_directories(vcdrivers_common PUBLIC

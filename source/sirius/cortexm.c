@@ -76,6 +76,9 @@ void reset_handler_default(void)
 
     /* startup the kernel */
     // TODO: startup rtos kernel here
+
+    extern int main(void);
+    main();
 }
 
 void nmi_default(void)
