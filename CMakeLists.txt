@@ -2,8 +2,6 @@ cmake_minimum_required (VERSION 3.7)
 
 project(vcdrivers)
 
-option(ENABLE_BUILD_IMAGE "build vcdrivers image bin." ON)
-
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
@@ -11,8 +9,6 @@ endif()
 if (${CPU_NAME} STREQUAL sirius)
     set(CPU_ARCH cortex-m3)
 endif()
-
-if (ENABLE_BUILD_IMAGE)
 
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 set(CMAKE_C_FLAGS_DEBUG "-g -O0")
@@ -32,8 +28,6 @@ set(CMAKE_CXX_FLAGS
     "-mcpu=${CPU_ARCH} -mthumb -mfloat-abi=soft -ffunction-sections -fdata-sections -fno-strict-aliasing -fno-builtin -fshort-enums"
     CACHE INTERNAL ""
 )
-
-endif() #if (ENABLE_BUILD_IMAGE)
 
 set(COMMON_COMPILE_FLAGS
     -Wall
@@ -58,8 +52,6 @@ target_include_directories(vcdrivers_common PUBLIC
 
 target_compile_options(vcdrivers_common PRIVATE ${COMMON_COMPILE_FLAGS})
 
-if (ENABLE_BUILD_IMAGE)
-
 add_executable(vcdrivers_test ${CMAKE_CURRENT_SOURCE_DIR}/main.c)
 
 target_link_libraries(vcdrivers_test PRIVATE
@@ -67,8 +59,6 @@ target_link_libraries(vcdrivers_test PRIVATE
     vcdrivers_${CPU_NAME}_periph
     vcdrivers_${CPU_NAME}
 )
-
-endif() #if (ENABLE_BUILD_IMAGE)
 
 if (${CPU_NAME} STREQUAL sirius)
 
@@ -108,26 +98,22 @@ if (${CPU_NAME} STREQUAL sirius)
 
     target_compile_options(vcdrivers_sirius PRIVATE ${COMMON_COMPILE_FLAGS})
 
-    if (ENABLE_BUILD_IMAGE)
+    set_target_properties(vcdrivers_test PROPERTIES LINK_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/source/sirius/sirius_default.ld
+    )
 
-        set_target_properties(vcdrivers_test PROPERTIES LINK_DEPENDS
-            ${CMAKE_CURRENT_SOURCE_DIR}/source/sirius/sirius_default.ld
-        )
+    set_target_properties(vcdrivers_test PROPERTIES LINK_FLAGS
+        "-L${CMAKE_CURRENT_SOURCE_DIR}/build -Wl,--whole-archive -lvcdrivers_common -lvcdrivers_sirius_periph -lvcdrivers_sirius -Wl,--no-whole-archive -T ${CMAKE_CURRENT_SOURCE_DIR}/source/sirius/sirius_default.ld -lc -lnosys -lm -lstdc++"
+    )
 
-        set_target_properties(vcdrivers_test PROPERTIES LINK_FLAGS
-            "-L${CMAKE_CURRENT_SOURCE_DIR}/build -Wl,--whole-archive -lvcdrivers_common -lvcdrivers_sirius_periph -lvcdrivers_sirius -Wl,--no-whole-archive -T ${CMAKE_CURRENT_SOURCE_DIR}/source/sirius/sirius_default.ld -lc -lnosys -lm -lstdc++"
-        )
-
-        add_custom_command(OUTPUT vcdrivers_test.bin
-            COMMAND arm-none-eabi-objcopy -O binary vcdrivers_test vcdrivers_test.bin
-            DEPENDS vcdrivers_test
-        )
-        add_custom_target(vcdrivers_test_bin ALL DEPENDS vcdrivers_test.bin)
-        add_custom_target(vcdrivers_test_size ALL
-            COMMAND arm-none-eabi-size --format=berkeley vcdrivers_test
-            DEPENDS vcdrivers_test
-        )
-
-    endif() #if (ENABLE_BUILD_IMAGE)
+    add_custom_command(OUTPUT vcdrivers_test.bin
+        COMMAND arm-none-eabi-objcopy -O binary vcdrivers_test vcdrivers_test.bin
+        DEPENDS vcdrivers_test
+    )
+    add_custom_target(vcdrivers_test_bin ALL DEPENDS vcdrivers_test.bin)
+    add_custom_target(vcdrivers_test_size ALL
+        COMMAND arm-none-eabi-size --format=berkeley vcdrivers_test
+        DEPENDS vcdrivers_test
+    )
 
 endif()
