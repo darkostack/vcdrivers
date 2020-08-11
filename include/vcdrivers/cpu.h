@@ -1,5 +1,7 @@
-#ifndef CPU_H
-#define CPU_H
+#ifndef VCDRIVERS_CPU_H
+#define VCDRIVERS_CPU_H
+
+#include <vcdrivers/config.h>
 
 #include "cpu_conf.h"
 

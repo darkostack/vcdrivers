@@ -3,6 +3,8 @@
 
 #include <stdbool.h>
 
+#include <vcdrivers/config.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

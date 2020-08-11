@@ -1,5 +1,7 @@
-#ifndef CORTEXM_H
-#define CORTEXM_H
+#ifndef VCDRIVERS_CORTEXM_H
+#define VCDRIVERS_CORTEXM_H
+
+#include <vcdrivers/config.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -61,4 +63,4 @@ void dummy_handler_default(void);
 }
 #endif
 
-#endif /* CORTEXM_H */
+#endif /* VCDRIVERS_CORTEXM_H */

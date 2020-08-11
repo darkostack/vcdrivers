@@ -1,6 +1,8 @@
 #ifndef VCDRIVERS_ASSERT_H
 #define VCDRIVERS_ASSERT_H
 
+#include <vcdrivers/config.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

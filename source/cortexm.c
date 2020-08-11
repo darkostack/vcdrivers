@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include <vcdrivers/config.h>
 #include <vcdrivers/cpu.h>
 
 /**

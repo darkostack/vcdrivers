@@ -9,6 +9,7 @@
 #include <sys/unistd.h>
 #include <unistd.h>
 
+#include <vcdrivers/config.h>
 #include <vcdrivers/periph/irq.h>
 #include <vcdrivers/stdiobase.h>
 

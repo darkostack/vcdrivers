@@ -4,12 +4,10 @@
 #include <stdint.h>
 #include <unistd.h>
 
+#include <vcdrivers/config.h>
+
 #ifdef __cplusplus
 extern "C" {
-#endif
-
-#ifndef STDIOBASE_UART_DEV
-#define STDIOBASE_UART_DEV UART_DEV(1)
 #endif
 
 void vcstdio_init(void *arg);

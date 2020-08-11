@@ -315,7 +315,10 @@ static void _irq_uart_handler(vcuart_t uart)
         }
 
         /* check if context switch was requested */
-        // TODO: notify rtos this is the end of ISR
+#if VCDRIVERS_CONFIG_RTOS_ENABLE
+        extern void cpu_end_of_isr(void);
+        cpu_end_of_isr();
+#endif
     }
 }
 

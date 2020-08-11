@@ -5,6 +5,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <vcdrivers/config.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

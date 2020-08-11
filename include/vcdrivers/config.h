@@ -1,0 +1,14 @@
+#ifndef VCDRIVERS_CONFIG_H
+#define VCDRIVERS_CONFIG_H
+
+#define VCDRIVERS_CONFIG_H_IN
+
+#ifdef VCDRIVERS_PROJECT_CONFIG_FILE
+#include VCDRIVERS_PROJECT_CONFIG_FILE
+#endif
+
+#include <vcdrivers/default-config.h>
+
+#undef VCDRIVERS_CONFIG_H_IN
+
+#endif /* VCDRIVERS_CONFIG_H */
