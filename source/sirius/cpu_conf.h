@@ -1,7 +1,7 @@
 #ifndef CPU_CONF_H
 #define CPU_CONF_H
 
-#include <cortexm.h>
+#include <vcdrivers/cortexm.h>
 
 #ifdef __cplusplus
 extern "C" {

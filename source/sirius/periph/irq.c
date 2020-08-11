@@ -1,6 +1,6 @@
 #include <stdint.h>
-#include <cpu.h>
 
+#include <vcdrivers/cpu.h>
 #include <vcdrivers/periph/irq.h>
 
 unsigned int vcirq_disable(void)

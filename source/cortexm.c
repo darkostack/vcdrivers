@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include <cpu.h>
+#include <vcdrivers/cpu.h>
 
 /**
  * Memory markers, defined in the linker script

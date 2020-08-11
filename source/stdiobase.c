@@ -1,15 +1,10 @@
 #include <vcdrivers/periph/uart.h>
 #include <vcdrivers/stdiobase.h>
 
-__attribute__((weak)) void vcstdio_init(void)
+__attribute__((weak)) void vcstdio_init(void *arg)
 {
+    (void) arg;
     vcuart_init(STDIOBASE_UART_DEV, 115200, NULL, NULL);
-}
-
-__attribute__((weak)) int vcstdio_write_one(char byte)
-{
-    (void) byte;
-    return 0;
 }
 
 ssize_t vcstdio_write(const void *buffer, size_t len)

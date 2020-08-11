@@ -12,9 +12,7 @@ extern "C" {
 #define STDIOBASE_UART_DEV UART_DEV(1)
 #endif
 
-void vcstdio_init(void);
-
-int vcstdio_write_one(char byte);
+void vcstdio_init(void *arg);
 
 ssize_t vcstdio_write(const void *buffer, size_t len);
 
