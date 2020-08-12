@@ -595,8 +595,8 @@ static void _irq_gpio_handler(vcgpio_t pin)
         _isr_gpio_context[index].callback(_isr_gpio_context[index].arg);
         /* check if context switch was requested */
 #if VCDRIVERS_CONFIG_RTOS_ENABLE
-        extern void cpu_end_of_isr(void);
-        cpu_end_of_isr();
+        extern void cpu_end_of_isr(void *);
+        cpu_end_of_isr(NULL);
 #endif
     }
 }
