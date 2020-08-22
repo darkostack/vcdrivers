@@ -48,12 +48,12 @@ int vctim_init(vctim_t dev, unsigned long freq, vctim_callback_func_t callback, 
     return 0;
 }
 
-int vctim_set_absolute(vctim_t dev, unsigned channel, unsigned int value)
+int vctim_set(vctim_t dev, unsigned channel, unsigned int timeout)
 {
     vcassert(dev < TIM_NUMOF && channel < TIM_CHAN_NUMOF);
 
     /* config capture/compare register (ccr) period */
-    VC_PWM(dev)->CCR[channel] = value;
+    VC_PWM(dev)->CCR[channel] = timeout;
 
     /* enable capture/compare interrupt */
     uint32_t temp = VC_PWM(dev)->CCTL[channel];
@@ -67,6 +67,12 @@ int vctim_set_absolute(vctim_t dev, unsigned channel, unsigned int value)
     NVIC_EnableIRQ(_tim_irqn[dev]);
 
     return 0;
+}
+
+int vctim_set_absolute(vctim_t dev, unsigned channel, unsigned int value)
+{
+    uint32_t now = vctim_read(dev);
+    return vctim_set(dev, channel, value - now);
 }
 
 int vctim_clear(vctim_t dev, unsigned channel)

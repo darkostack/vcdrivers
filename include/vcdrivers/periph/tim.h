@@ -27,6 +27,8 @@ typedef struct
 
 int vctim_init(vctim_t dev, unsigned long freq, vctim_callback_func_t callback, void *arg);
 
+int vctim_set(vctim_t dev, unsigned channel, unsigned int timeout);
+
 int vctim_set_absolute(vctim_t dev, unsigned channel, unsigned int value);
 
 int vctim_clear(vctim_t dev, unsigned channel);
