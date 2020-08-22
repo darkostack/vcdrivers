@@ -129,3 +129,7 @@ void cpu_init(void)
     while ((VC_PMU->STS & PMU_STS_EXIST_32K_Msk) == 0);
     while ((VC_ANA->CLKCTRL4 & ANA_CLKCTRL4_AC_LOCK_Msk) == 0);
 }
+
+__attribute__((weak)) void cpu_end_of_isr(void)
+{
+}

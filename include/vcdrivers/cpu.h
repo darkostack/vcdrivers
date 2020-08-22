@@ -11,6 +11,8 @@ extern "C" {
 
 void cpu_init(void);
 
+void cpu_end_of_isr(void);
+
 #ifdef __cplusplus
 }
 #endif

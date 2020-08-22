@@ -307,18 +307,12 @@ static void _irq_uart_handler(vcuart_t uart)
         uint32_t temp = VC_UART(uart)->INTSTS;
         temp |= UART_INTSTS_RXIF_Msk;
         VC_UART(uart)->INTSTS = temp;
-
         /* call uart rx callback if any */
         if (_isr_uart_context[uart].callback != NULL)
         {
             _isr_uart_context[uart].callback(_isr_uart_context[uart].arg, VC_UART(uart)->DATA);
         }
-
-        /* check if context switch was requested */
-#if VCDRIVERS_CONFIG_RTOS_ENABLE
-        extern void cpu_end_of_isr(void *);
-        cpu_end_of_isr(NULL);
-#endif
+        cpu_end_of_isr(); /* notify app or rtos we are at the end of isr */
     }
 }
 

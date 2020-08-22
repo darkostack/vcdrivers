@@ -135,11 +135,7 @@ static void _irq_tim_handler(vctim_t dev)
             if (_isr_tim_ctx[dev].callback != NULL && VC_PWM(dev)->CCR[ch] != 0)
             {
                 _isr_tim_ctx[dev].callback(_isr_tim_ctx[dev].arg, ch);
-                /* check if context switch was requested */
-#if VCDRIVERS_CONFIG_RTOS_ENABLE
-                extern void cpu_end_of_isr(void *);
-                cpu_end_of_isr(NULL);
-#endif
+                cpu_end_of_isr(); /* notify app or rtos we are at the end of isr */
                 break;
             }
         }
