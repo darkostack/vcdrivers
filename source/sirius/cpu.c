@@ -61,6 +61,15 @@ void cpu_init(void)
     /* wait until clock is stable */
     while ((VC_PMU->STS & PMU_STS_EXIST_32K_Msk) == 0);
     while ((VC_ANA->CLKCTRL4 & ANA_CLKCTRL4_AC_LOCK_Msk) == 0);
+    uint32_t counter = 1000000;
+    while (1)
+    {
+        counter--;
+        if (counter == 0)
+        {
+            break;
+        }
+    }
 
     /* set AHB clock divider */
     temp = VC_MISC2->CLKDIVH;
@@ -128,6 +137,15 @@ void cpu_init(void)
     /* wait until clock is stable */
     while ((VC_PMU->STS & PMU_STS_EXIST_32K_Msk) == 0);
     while ((VC_ANA->CLKCTRL4 & ANA_CLKCTRL4_AC_LOCK_Msk) == 0);
+    counter = 1000000;
+    while (1)
+    {
+        counter--;
+        if (counter == 0)
+        {
+            break;
+        }
+    }
 }
 
 __attribute__((weak)) void cpu_end_of_isr(void)
