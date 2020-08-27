@@ -71,8 +71,13 @@ int vctim_set(vctim_t dev, unsigned channel, unsigned int timeout)
 
 int vctim_set_absolute(vctim_t dev, unsigned channel, unsigned int value)
 {
-    uint32_t now = vctim_read(dev);
-    return vctim_set(dev, channel, value - now);
+    uint16_t now = vctim_read(dev);
+    uint32_t target = now + value;
+    if (target > 0xffff)
+    {
+        target = target - 0xffff;
+    }
+    return vctim_set(dev, channel, target);
 }
 
 int vctim_clear(vctim_t dev, unsigned channel)
