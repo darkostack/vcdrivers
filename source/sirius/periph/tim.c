@@ -133,16 +133,10 @@ static void _irq_tim_handler(vctim_t dev)
     {
         if ((VC_PWM(dev)->CCTL[ch] & PWM_CCTL_CCIFG_Msk) != 0)
         {
-            /* clear CCIFG interrupt status & disable CC interupt*/
+            /* clear CCIFG interrupt status */
             uint32_t temp = VC_PWM(dev)->CCTL[ch];
-            temp &= ~PWM_CCTL_CCIE_Msk;
             temp |= PWM_CCTL_CCIFG_Msk;
-            temp |= PWM_CCTL_CCIE_Disabled;
             VC_PWM(dev)->CCTL[ch] = temp;
-
-            /* disable timer global interrupt */
-            NVIC_DisableIRQ(_tim_irqn[dev]);
-
             if (_isr_tim_ctx[dev].callback != NULL && VC_PWM(dev)->CCR[ch] != 0)
             {
                 _isr_tim_ctx[dev].callback(_isr_tim_ctx[dev].arg, ch);
