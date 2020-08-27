@@ -129,12 +129,23 @@ void vctim_stop(vctim_t dev)
 
 static void _irq_tim_handler(vctim_t dev)
 {
+    uint32_t temp = 0;
+
+    if ((VC_PWM(dev)->CTL & PWM_CTL_IFG_Msk) != 0)
+    {
+        /* clear IFG interrupt flag */
+        temp = VC_PWM(dev)->CTL;
+        temp |= PWM_CTL_IFG_Msk;
+        VC_PWM(dev)->CTL = temp;
+        return;
+    }
+
     for (uint8_t ch = 0; ch < TIM_CHAN_NUMOF; ch++)
     {
         if ((VC_PWM(dev)->CCTL[ch] & PWM_CCTL_CCIFG_Msk) != 0)
         {
-            /* clear CCIFG interrupt status */
-            uint32_t temp = VC_PWM(dev)->CCTL[ch];
+            /* clear CCIFG interrupt flag */
+            temp = VC_PWM(dev)->CCTL[ch];
             temp |= PWM_CCTL_CCIFG_Msk;
             VC_PWM(dev)->CCTL[ch] = temp;
             if (_isr_tim_ctx[dev].callback != NULL && VC_PWM(dev)->CCR[ch] != 0)
