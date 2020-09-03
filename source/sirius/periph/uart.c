@@ -272,6 +272,11 @@ size_t vcuart_write(vcuart_t uart, const uint8_t *data, size_t len)
 
     for (size_t i = 0; i < len; i++)
     {
+        if (data[i] == '\n')
+        {
+           _send_byte(uart, '\r');
+        }
+
         _send_byte(uart, data[i]);
     }
 
