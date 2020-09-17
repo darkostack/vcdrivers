@@ -15,6 +15,8 @@
  * Authors: Darko Pancev <darko.pancev@vertexcom.com>
  */
 
+#include <stddef.h>
+
 #include <vcdrivers/cpu.h>
 #include <vcdrivers/assert.h>
 #include <vcdrivers/periph/gpio.h>
