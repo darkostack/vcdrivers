@@ -61,7 +61,7 @@ int vctim_set_absolute(vctim_t dev, unsigned channel, unsigned int value);
 
 int vctim_clear(vctim_t dev, unsigned channel);
 
-uint32_t vctim_read(vctim_t dev);
+uint16_t vctim_read(vctim_t dev);
 
 void vctim_start(vctim_t dev);
 

@@ -126,7 +126,7 @@ int vctim_clear(vctim_t dev, unsigned channel)
     return 0;
 }
 
-uint32_t vctim_read(vctim_t dev)
+uint16_t vctim_read(vctim_t dev)
 {
     return VC_PWM(dev)->TAR;
 }
